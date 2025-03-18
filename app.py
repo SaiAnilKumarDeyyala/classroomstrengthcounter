@@ -9,19 +9,18 @@ face_cascade = cv2.CascadeClassifier(r'haarcascade_frontalface_default.xml')
 # this code for
 account_sid = '<account_sid>'
 auth_token = '<auth_token>'
-twilio_number = +13344497885
-mynumber = +919999999999  # your number
+twilio_number = '<twilio_number>'
+mynumber = '<your_number>'  # your number
 client = Client(account_sid,auth_token,)
 
 total_count = 0
-t = 60 * 60
+t = 1 * 60
 def sms_alert():
  message = client.messages.create(
  body=f"{count} students are in the classRoom and total of {total_count} in the class till now",
  from_=twilio_number,
- to=+918340096052
+ to=mynumber
  )
- print(f'{count} people exist in class')
  print(message.sid)
  time.sleep(t)
 
@@ -46,6 +45,7 @@ while True:
  cv2.putText(img, f'{count}', (50, 50), font, 1, (0, 255, 255),2, cv2.LINE_4)
  # Display
  cv2.imshow('img', img)
+ sms_alert()
  # Stop if escape key is pressed
  k = cv2.waitKey(30) & 0xff
  if k == 'Q':
